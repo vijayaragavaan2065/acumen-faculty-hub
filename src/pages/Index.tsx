@@ -3,6 +3,17 @@ import LoginPage from "@/components/LoginPage";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import FacultyDashboard from "@/components/FacultyDashboard";
+import KPIForms from "@/components/pages/KPIForms";
+import UploadEvidence from "@/components/pages/UploadEvidence";
+import ScoreAnalysis from "@/components/pages/ScoreAnalysis";
+import Reports from "@/components/pages/Reports";
+import FacultyReview from "@/components/pages/FacultyReview";
+import Approvals from "@/components/pages/Approvals";
+import DepartmentData from "@/components/pages/DepartmentData";
+import AllDepartments from "@/components/pages/AllDepartments";
+import InstituteReports from "@/components/pages/InstituteReports";
+import UserManagement from "@/components/pages/UserManagement";
+import SystemSettings from "@/components/pages/SystemSettings";
 import { cn } from "@/lib/utils";
 
 type UserRole = "faculty" | "hod" | "admin";
@@ -27,20 +38,45 @@ const Index = () => {
     switch (currentPage) {
       case "dashboard":
         return <FacultyDashboard />;
+      
+      // Faculty pages
       case "kpi-forms":
-        return (
-          <div className="academic-card p-6">
-            <h2 className="text-xl font-semibold mb-4">KPI Forms</h2>
-            <p className="text-muted-foreground">KPI form interface will be implemented here.</p>
-          </div>
-        );
+      case "kpi-teaching":
+      case "kpi-research":
+      case "kpi-service":
+        return <KPIForms />;
       case "upload":
-        return (
-          <div className="academic-card p-6">
-            <h2 className="text-xl font-semibold mb-4">Upload Evidence</h2>
-            <p className="text-muted-foreground">File upload interface will be implemented here.</p>
-          </div>
-        );
+        return <UploadEvidence />;
+      case "scores":
+        return <ScoreAnalysis />;
+      case "reports":
+        return <Reports />;
+      
+      // HoD pages
+      case "faculty-review":
+      case "pending-reviews":
+      case "completed-reviews":
+      case "dept-stats":
+        return <FacultyReview />;
+      case "approvals":
+        return <Approvals />;
+      case "department-data":
+        return <DepartmentData />;
+      
+      // Admin pages
+      case "departments":
+      case "dept-cse":
+      case "dept-ece":
+      case "dept-mech":
+      case "dept-civil":
+        return <AllDepartments />;
+      case "institute-reports":
+        return <InstituteReports />;
+      case "user-management":
+        return <UserManagement />;
+      case "settings":
+        return <SystemSettings />;
+      
       default:
         return <FacultyDashboard />;
     }
