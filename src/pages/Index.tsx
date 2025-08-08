@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LoginPage from "@/components/LoginPage";
+import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import FacultyDashboard from "@/components/FacultyDashboard";
@@ -19,19 +19,13 @@ import { cn } from "@/lib/utils";
 type UserRole = "faculty" | "hod" | "admin";
 
 const Index = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentRole, setCurrentRole] = useState<UserRole>("faculty");
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-  const handleLogin = (role: UserRole) => {
-    setCurrentRole(role);
-    setIsLoggedIn(true);
-  };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setCurrentPage("dashboard");
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
   };
 
   const renderPageContent = () => {
@@ -82,9 +76,6 @@ const Index = () => {
     }
   };
 
-  if (!isLoggedIn) {
-    return <LoginPage onLogin={handleLogin} />;
-  }
 
   return (
     <div className="min-h-screen bg-background flex">
